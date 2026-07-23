@@ -339,10 +339,16 @@ const Store=(()=>{
    an update banner if your hosted version is newer. Left empty, nothing is
    ever requested and the game stays completely network-free.
    ========================================================================== */
-const GAME_VERSION="3.2.0";
+const GAME_VERSION="3.3.0";
 const UPDATE_URL="";   // e.g. "https://yoursite.com/printcraft-version.json"
 
 const CHANGELOG=[
+ {v:"3.3.0",date:"2026-07-23",title:"Settings You Can See",notes:[
+  "The live print now shows your settings as it builds: layer height changes the stair-stepping and layer pitch, infill density changes the lattice, wall and top/bottom counts show as real shell thickness, and skirt, brim, raft and supports are drawn on the bed.",
+  "The part-cooling fan now spins at the speed you set it to.",
+  "Calibration tests now unlock their settings at 95% instead of 80%.",
+  "Every Badge Store item now costs a single Badge Point.",
+  "Fixed a lock-up where the Overhang test could never be aced, because the supports control that fixes it only unlocked from that same test."]},
  {v:"3.2.0",date:"2026-07-23",title:"Saves, Offline & Updates",notes:[
   "Progress now saves properly on any device — closing the game no longer wipes your shop.",
   "Added save backup and restore, so you can move your shops to another phone.",
@@ -734,17 +740,17 @@ const GUIDE={
 };
 /* Badge Store — bought with Badge Points, locked to the difficulty profile that earned them */
 const BADGE_STORE=[
- {id:"skinCarbon",name:"Carbon Weave Skin",cost:2,type:"skin",desc:"A woven carbon fascia for both machines. Purely, gloriously cosmetic."},
- {id:"skinIvory",name:"Ivory & Brass Skin",cost:2,type:"skin",desc:"Cream panels with brass hardware. Looks like it belongs in a design studio."},
- {id:"goldNozzle",name:"Gold-Plated Nozzle",cost:3,type:"cosmetic",desc:"Machined accent parts and a gold tip. No stats — just swagger."},
- {id:"ledSpectrum",name:"Spectrum LED Kit",cost:2,type:"cosmetic",desc:"Slow colour-cycling light bar in the print room and the live view."},
- {id:"perkWear",name:"Precision Bearings",cost:4,type:"perk",desc:"Permanent: every part on this profile wears 25% slower."},
- {id:"perkPayout",name:"Preferred Supplier Contract",cost:5,type:"perk",desc:"Permanent: +5% cash on every single print payout."},
- {id:"perkOrder",name:"Extra Order Slot",cost:4,type:"perk",desc:"Permanent: a fourth customer order every day."},
- {id:"perkDry",name:"Vacuum Storage System",cost:4,type:"perk",desc:"Permanent: filament absorbs moisture 60% slower, on top of any dry box."},
- {id:"perkWipe",name:"Automatic Plate Wipe",cost:3,type:"perk",desc:"Permanent: the plate is wiped clean automatically before every print."},
- {id:"assistant",name:"Workshop Assistant",cost:6,type:"perk",desc:"Permanent: names every defect the instant it appears — no research cost, ever."},
- {id:"starterKit",name:"Veteran's Starter Kit",cost:3,type:"perk",desc:"Permanent: every new run on this profile begins with $250 and a spare gray PLA spool."}
+ {id:"skinCarbon",name:"Carbon Weave Skin",cost:1,type:"skin",desc:"A woven carbon fascia for both machines. Purely, gloriously cosmetic."},
+ {id:"skinIvory",name:"Ivory & Brass Skin",cost:1,type:"skin",desc:"Cream panels with brass hardware. Looks like it belongs in a design studio."},
+ {id:"goldNozzle",name:"Gold-Plated Nozzle",cost:1,type:"cosmetic",desc:"Machined accent parts and a gold tip. No stats — just swagger."},
+ {id:"ledSpectrum",name:"Spectrum LED Kit",cost:1,type:"cosmetic",desc:"Slow colour-cycling light bar in the print room and the live view."},
+ {id:"perkWear",name:"Precision Bearings",cost:1,type:"perk",desc:"Permanent: every part on this profile wears 25% slower."},
+ {id:"perkPayout",name:"Preferred Supplier Contract",cost:1,type:"perk",desc:"Permanent: +5% cash on every single print payout."},
+ {id:"perkOrder",name:"Extra Order Slot",cost:1,type:"perk",desc:"Permanent: a fourth customer order every day."},
+ {id:"perkDry",name:"Vacuum Storage System",cost:1,type:"perk",desc:"Permanent: filament absorbs moisture 60% slower, on top of any dry box."},
+ {id:"perkWipe",name:"Automatic Plate Wipe",cost:1,type:"perk",desc:"Permanent: the plate is wiped clean automatically before every print."},
+ {id:"assistant",name:"Workshop Assistant",cost:1,type:"perk",desc:"Permanent: names every defect the instant it appears — no research cost, ever."},
+ {id:"starterKit",name:"Veteran's Starter Kit",cost:1,type:"perk",desc:"Permanent: every new run on this profile begins with $250 and a spare gray PLA spool."}
 ];
 const BS=Object.fromEntries(BADGE_STORE.map(b=>[b.id,b]));
 const NET_BASE={easy:7000,normal:8000,hard:9000,realistic:10000};
@@ -752,11 +758,11 @@ const ACH=[
  {id:"first",name:"First Print",desc:"Complete any print."},
  {id:"firstPerfect",name:"Perfect!",desc:"Score a 100% quality grade."},
  {id:"perfectBenchy",name:"First Perfect Benchy",desc:"A flawless 3DBenchy."},
- {id:"seaTrials",name:"Sea Trials",desc:"Master the 3DBenchy (80%+)."},
- {id:"dialedIn",name:"Dialed In",desc:"Master the XYZ Calibration Cube (80%+)."},
- {id:"defyingGravity",name:"Defying Gravity",desc:"Master the Overhang & Bridge Test (80%+)."},
- {id:"goldilocks",name:"Goldilocks Zone",desc:"Master the Temperature Tower (80%+)."},
- {id:"stringTheory",name:"String Theory",desc:"Master the Retraction Test (80%+)."},
+ {id:"seaTrials",name:"Sea Trials",desc:"Master the 3DBenchy (95%+)."},
+ {id:"dialedIn",name:"Dialed In",desc:"Master the XYZ Calibration Cube (95%+)."},
+ {id:"defyingGravity",name:"Defying Gravity",desc:"Master the Overhang & Bridge Test (95%+)."},
+ {id:"goldilocks",name:"Goldilocks Zone",desc:"Master the Temperature Tower (95%+)."},
+ {id:"stringTheory",name:"String Theory",desc:"Master the Retraction Test (95%+)."},
  {id:"labRat",name:"Lab Rat",desc:"Master every calibration print."},
  {id:"absMaster",name:"Master of ABS",desc:"Grade 90%+ on an ABS print."},
  {id:"speedDemon",name:"Speed Demon",desc:"Grade 90%+ at 100+ mm/s."},
@@ -781,7 +787,7 @@ const ACH=[
  {id:"modShop",name:"Mod Shop",desc:"Install 4 printer mods."},
  {id:"theWorks",name:"The Works",desc:"Install all 7 printer mods."},
  {id:"fullRig",name:"Fully Loaded",desc:"Own every hardware upgrade."},
- {id:"tolerancer",name:"Within Tolerance",desc:"Master the Tolerance & Clearance Test (80%+)."},
+ {id:"tolerancer",name:"Within Tolerance",desc:"Master the Tolerance & Clearance Test (95%+)."},
  {id:"batchRun",name:"Batch Run",desc:"Complete the Cable Clips batch print."},
  {id:"binThere",name:"Bin There",desc:"Grade 90%+ on the Stacking Hex Bins."},
  {id:"gillsAndGears",name:"Gills & Gears",desc:"Grade 90%+ on the Articulated Fish."},
@@ -1238,8 +1244,12 @@ function drawPrinter(x,w,h,o){o=o||{}; const mods=o.mods||{}; const lit=!!mods.l
  x.fillStyle="#10151f"; x.beginPath(); x.arc(tx,gz,6.5,0,7); x.fill();
  x.strokeStyle="#3c4a66"; x.beginPath(); x.arc(tx,gz,6.5,0,7); x.stroke();
  x.strokeStyle="#2a3346";
+ const fanSpin=o.fanPct!=null?(.25+o.fanPct/100*7):3;
  for(let a=0;a<4;a++){x.beginPath(); x.moveTo(tx,gz);
-  x.arc(tx,gz,5.5,a*1.5708+T*3,a*1.5708+T*3+.9); x.closePath(); x.stroke();}
+  x.arc(tx,gz,5.5,a*1.5708+T*fanSpin,a*1.5708+T*fanSpin+.9); x.closePath(); x.stroke();}
+ if(o.fanPct>55){x.strokeStyle="#9fd8ff22"; x.lineWidth=1;
+  for(let i=0;i<3;i++){const rr2=8+i*3+((T*40*(o.fanPct/100))%6);
+   x.beginPath(); x.arc(tx,gz,rr2,.6,2.5); x.stroke();}}
  x.fillStyle="#0d1119"; x.beginPath(); x.arc(tx,gz,1.6,0,7); x.fill();
  x.strokeStyle="#7d8dab";
  for(let i=0;i<3;i++){x.beginPath(); x.moveTo(tx-8,gz+15+i*2.4); x.lineTo(tx+8,gz+15+i*2.4); x.stroke();}
@@ -1481,7 +1491,7 @@ function filProfileModal(sp){const p=fpFor(sp.mat),f=FIL[sp.mat];
 function renderCatalog(tab){const c=$("#scr-catalog"); c.innerHTML="";
  const head=el("div","head"); const back=el("button","back","‹");
  back.addEventListener("click",()=>{Au.click(); renderMenu();});
- head.append(back,el("div","grow","<h2>Model Catalog</h2><div class='sub'>Test prints pay nothing — ace them at 80%+ to unlock slicer settings.</div>"));
+ head.append(back,el("div","grow","<h2>Model Catalog</h2><div class='sub'>Test prints pay nothing. Any completed test reveals that filament's tuning — ace one at 95%+ to unlock its slicer settings.</div>"));
  c.appendChild(head);
  const tabs=el("div","tabs");
  [["cal","Calibration"],["prod","Products"],["mod","Printer Mods"]].forEach(([id,lab])=>{
@@ -1499,7 +1509,7 @@ function renderCatalog(tab){const c=$("#scr-catalog"); c.innerHTML="";
       <span class="chip">~${fmtH(est.h)} print</span><span class="chip">~${Math.round(est.g)}g</span>
       ${locked?`<span class="chip warn">🔒 ${reqText(m)}</span>`:""}
     </div>
-    ${m.cat==="cal"&&!S.calib[m.id]?`<div class="tiny" style="margin-top:6px;color:var(--teal)">🔓 80%+ unlocks: ${calUnlockNames(m.id)}</div>`:""}
+    ${m.cat==="cal"&&!S.calib[m.id]?`<div class="tiny" style="margin-top:6px;color:var(--teal)">🔓 95%+ unlocks: ${calUnlockNames(m.id)}</div>`:""}
     </div></div>`;
   const cv=card.querySelector("canvas");
   requestAnimationFrame(()=>drawModelThumb(cv,m,spool()?spool().color:"#8f959e"));
@@ -1584,7 +1594,17 @@ function effective(set){const f=filCtx(); const e={};
   e[s.id]=v;}
  if(tier()===0)e.adhesionType=set.adhesionOn?2:0;
  e._lh=LH_VALS[e.layerHeight]; return e;}
-function estimate(m,set){const e=set._lh?set:effective(set);
+function lockedProfile(e,m){
+ if(!m||!S||!DIFF||!m.feats)return e;
+ const vis=id=>{const s=SET[id]; return s?visibleSetting(s):true;};
+ // Never penalise the player for a control they haven't unlocked yet.
+ if(!vis("supports")&&m.feats.steep&&e.supports===0)e.supports=2;   // stock profile adds tree supports
+ if(!vis("minLayerTime")&&e.minLayerTime<4)e.minLayerTime=8;
+ if(!vis("slowCool"))e.slowCool=true;
+ if(!vis("zSeam"))e.zSeam=0;
+ if(!vis("sequence")&&m.feats.multi)e.sequence=1;
+ return e;}
+function estimate(m,set){const e=lockedProfile(set._lh?set:effective(set),m);
  const vase=e.vase===1;
  const infF=vase?.5:(.5+e.infill/100*.9);
  let h=m.baseH*(0.2/e._lh)*infF*Math.pow(50/Math.max(10,e.speed),.7)*(1+(e.walls-1)*.07)*(vase?.55:1);
@@ -1677,7 +1697,7 @@ function renderSlicer(m){curModel=m; if(!curSet||curSet._for!==m.id){curSet=defa
  if(lockIds.length){c.appendChild(el("div","tierLab","🔒 Locked — prove it on a test print"));
   lockIds.forEach(cid=>{const box=el("div","ctl tap"); box.style.opacity=.62;
    box.innerHTML=`<div class="lab"><span>🔒 ${lockGroups[cid].join(" · ")}</span></div>
-    <div class="tiny" style="margin-top:4px;color:var(--teal)">Score 80%+ on the ${MODEL[cid].name} to unlock these</div>`;
+    <div class="tiny" style="margin-top:4px;color:var(--teal)">Score 95%+ on the ${MODEL[cid].name} to unlock these</div>`;
    box.addEventListener("click",()=>{Au.click(); curSet=null; renderCatalog("cal");});
    c.appendChild(box);});}
  // estimate bar
@@ -2133,6 +2153,7 @@ function drawPrintFrame(prog){const {x,w,h}=sim.cvCtx; const st=sim;
  const oscT=performance.now()/(420-Math.min(160,effSpd(st))*1.8);
  const toolX=idle?cx-frW*.32:cx+Math.sin(oscT)*Math.min(frW*.3,m.wMM*K*.55);
  drawPrinter(x,w,h,{mods:modColors,spool:spool()?spool().color:null,gantryY:gz,toolX,hotGlow:!st.spagged,
+  fanPct:idle?0:e.fan,
   pro:printerStats().pro,skin:perk("skinCarbon")?"skinCarbon":perk("skinIvory")?"skinIvory":null});
  renderModel(x,cx,bedY-8,m,e,prog,K,st,false);}
 
@@ -2205,10 +2226,52 @@ function renderModel(x,cx,bedY,m,e,prog,K,st,inspect){
   sg2.addColorStop(0,"#00000066"); sg2.addColorStop(1,"#00000000");
   x.fillStyle=sg2; x.translate(sx,bedY+3); x.scale(1,.22); x.translate(-sx,-(bedY+3));
   x.beginPath(); x.arc(sx,bedY+3,shw,0,7); x.fill(); x.restore();
+  /* ---- what the slicer settings actually look like ---- */
+  const wallN=(e.walls|0)+1, topN=(e.topBottom|0)+2;
+  const nL=Math.max(1,Math.round(m.hMM/e._lh));      // real layer count for this layer height
+  const lhPx=H/nL;                                   // one layer, in pixels
+  const bodyCol=(st?st.colorSeg[st.colorSeg.length-1].color:"#8f959e");
+  const adh=(DIFF&&DIFF.tier===0)?(e.adhesionOn?2:0):(e.adhesionType|0);
+  // build-plate adhesion: skirt ring, brim flange, or a full raft slab
+  if(adh>0&&!inspect){const b0=xw(0);
+   x.save(); x.strokeStyle=bodyCol; x.fillStyle=bodyCol;
+   if(adh===1){x.globalAlpha=.42; x.lineWidth=1.4;
+    x.beginPath(); x.ellipse(sx,bedY+1,b0+K*7,3.1,0,0,7); x.stroke();}
+   else if(adh===2){x.globalAlpha=.5;
+    const loops=Math.max(1,(e.brimWidth!=null?e.brimWidth:6));
+    x.beginPath(); x.ellipse(sx,bedY+1,b0+K*Math.min(9,loops*.9),3.4,0,0,7); x.fill();
+    x.globalAlpha=.75; x.lineWidth=1;
+    for(let i=1;i<=3;i++){x.beginPath(); x.ellipse(sx,bedY+1,b0+K*Math.min(9,loops*.9)*(i/3),3.4*(i/3),0,0,7); x.stroke();}}
+   else{x.globalAlpha=.62;
+    const rw=b0+K*5, rh=Math.max(3,lhPx*3);
+    x.fillRect(sx-rw,bedY-rh,rw*2,rh+2);
+    x.globalAlpha=.9; x.strokeStyle="#00000044"; x.lineWidth=1;
+    for(let i=sx-rw;i<sx+rw;i+=Math.max(3,K*2.2)){x.beginPath(); x.moveTo(i,bedY-rh); x.lineTo(i,bedY+2); x.stroke();}}
+   x.restore();}
+  // support scaffolding under anything that leans outward
+  if(e.supports>0&&!inspect){x.save(); x.globalAlpha=.3; x.strokeStyle=bodyCol;
+   x.lineWidth=e.supports===1?1.5:1.1;
+   const dt2=1/22;
+   for(let t=dt2;t<drawP;t+=dt2){
+    if(xw(t)>xw(t-dt2)*1.05){for(const s2 of[-1,1]){
+     x.beginPath();
+     if(e.supports===1){x.moveTo(sx+s2*xw(t),bedY); x.lineTo(sx+s2*xw(t),yOf(t));}
+     else{x.moveTo(sx+s2*xw(t)*.35,bedY); x.lineTo(sx+s2*xw(t),yOf(t));}
+     x.stroke();}}}
+   x.restore();}
+  // the body itself: coarse layers give visible stair-stepping, fine layers stay smooth
   P.moveTo(sx-xw(0)+dxAt(0),bedY);
-  const steps=40;
-  for(let i=0;i<=steps;i++){const t=i/steps*drawP; P.lineTo(sx-xw(t)+dxAt(t),yOf(t));}
-  for(let i=steps;i>=0;i--){const t=i/steps*drawP; P.lineTo(sx+xw(t)+dxAt(t),yOf(t));}
+  if(lhPx>=1.8){
+   const nDrawn=Math.max(1,Math.ceil(drawP*nL));
+   for(let i=0;i<nDrawn;i++){const t0=Math.min(drawP,i/nL),t1=Math.min(drawP,(i+1)/nL),tm=(t0+t1)/2;
+    P.lineTo(sx-xw(tm)+dxAt(tm),yOf(t0)); P.lineTo(sx-xw(tm)+dxAt(tm),yOf(t1));}
+   for(let i=nDrawn-1;i>=0;i--){const t0=Math.min(drawP,i/nL),t1=Math.min(drawP,(i+1)/nL),tm=(t0+t1)/2;
+    P.lineTo(sx+xw(tm)+dxAt(tm),yOf(t1)); P.lineTo(sx+xw(tm)+dxAt(tm),yOf(t0));}
+  }else{
+   const steps=40;
+   for(let i=0;i<=steps;i++){const t=i/steps*drawP; P.lineTo(sx-xw(t)+dxAt(t),yOf(t));}
+   for(let i=steps;i>=0;i--){const t=i/steps*drawP; P.lineTo(sx+xw(t)+dxAt(t),yOf(t));}
+  }
   P.closePath();
   // fill: color segments + infill
   x.save(); x.clip(P);
@@ -2217,7 +2280,7 @@ function renderModel(x,cx,bedY,m,e,prog,K,st,inspect){
    const t0=s0.from/(st?st.layers:1), t1=s1?s1.from/(st?st.layers:1):1;
    const y1=bedY-Math.min(drawP,t1)*H, y0=bedY-Math.min(drawP,t0)*H;
    x.fillStyle=s0.color; x.globalAlpha=e.vase===1?.16:.34; x.fillRect(sx-W2-8,y1,W2*2+16,y0-y1+1); x.globalAlpha=1;
-   if(e.vase!==1)drawInfill(x,e.infillPattern,sx-W2,y1,W2*2,y0-y1,s0.color,K);
+   if(e.vase!==1)drawInfill(x,e.infillPattern,sx-W2,y1,W2*2,y0-y1,s0.color,K,e.infill);
   }
   // form shading + material finish
   const bodyG=x.createLinearGradient(sx-W2,0,sx+W2,0);
@@ -2262,14 +2325,26 @@ function renderModel(x,cx,bedY,m,e,prog,K,st,inspect){
    for(const t of[.3,.55,.75]){if(t<drawP){const y=yOf(t);
     x.beginPath(); x.moveTo(sx-xw(t)*.9,y); x.lineTo(sx-xw(t)*.2,y+2); x.lineTo(sx+xw(t)*.6,y-1); x.lineTo(sx+xw(t)*.95,y+1); x.stroke();}}}
   x.restore();
-  // layer lines
+  // solid top & bottom shells — thickness follows the Top/Bottom setting
+  if(e.vase!==1&&topZ>2){x.save(); x.clip(P);
+   const capPx=Math.min(topZ*.45,Math.max(1.6,topN*lhPx));
+   x.fillStyle=bodyCol; x.globalAlpha=.5;
+   x.fillRect(sx-W2-8,bedY-capPx,W2*2+16,capPx);              // bottom shell
+   x.fillRect(sx-W2-8,bedY-topZ,W2*2+16,capPx);               // top shell, follows the print up
+   x.globalAlpha=1; x.restore();}
+  // layer lines drawn at the true layer pitch
   x.save(); x.clip(P); x.strokeStyle="#00000022";
-  const step=Math.max(2.5,e._lh*K*6);
+  const step=Math.max(1.5,lhPx);
+  x.lineWidth=lhPx>=3?1.2:.9;
   for(let y=bedY;y>bedY-topZ;y-=step){x.beginPath();x.moveTo(sx-W2-6,y);x.lineTo(sx+W2+6,y);x.stroke();}
   x.restore();
-  // outline / walls
-  const mainColor=(st?st.colorSeg[st.colorSeg.length-1].color:"#8f959e");
-  x.strokeStyle=mainColor; x.lineWidth=Math.max(2,e.walls*1.1);
+  // wall shells — more walls means a visibly thicker solid rim
+  if(topZ>1){x.save(); x.clip(P); x.strokeStyle=bodyCol; x.globalAlpha=.8;
+   x.lineWidth=Math.max(1.6,wallN*2.1*(e.flow/100));
+   x.stroke(P); x.globalAlpha=1; x.restore();}
+  // outline
+  const mainColor=bodyCol; x.lineWidth=Math.max(1.4,wallN*.9*(e.flow/100));
+  x.strokeStyle=mainColor;
   if(has("ring")){x.save(); x.setLineDash([3,2]); x.stroke(P); x.restore();}
   else if(e.fuzzy>0){x.save(); x.setLineDash(e.fuzzy===1?[2,2]:[1,3]); x.stroke(P); x.restore();}
   else x.stroke(P);
@@ -2362,9 +2437,12 @@ function renderModel(x,cx,bedY,m,e,prog,K,st,inspect){
    x.beginPath(); x.moveTo(a-12,y); x.bezierCurveTo(a-4,y-6,a+4,y+5,a+12,y-2); x.stroke();}
   x.globalAlpha=1;}
 }
-function drawInfill(x,pat,x0,y0,wd,ht,color,K){if(ht<=0)return;
- x.strokeStyle=color; x.globalAlpha=.5; x.lineWidth=1;
- const s=Math.max(6,K*4);
+function drawInfill(x,pat,x0,y0,wd,ht,color,K,dens){if(ht<=0)return;
+ const d=dens==null?20:clamp(dens,0,100);
+ if(d<=0)return;                                   // 0% infill draws nothing — a hollow shell
+ x.strokeStyle=color; x.globalAlpha=.35+d/100*.45; x.lineWidth=d>=70?1.4:1;
+ // denser infill = tighter lattice, exactly like a real slicer
+ const s=clamp(K*4*Math.pow(20/Math.max(4,d),.72),3,54);
  x.beginPath();
  if(pat===0){for(let i=x0-ht;i<x0+wd;i+=s){x.moveTo(i,y0+ht);x.lineTo(i+ht,y0);}
   for(let i=x0;i<x0+wd+ht;i+=s){x.moveTo(i,y0);x.lineTo(i-ht,y0+ht);}}
@@ -2383,7 +2461,7 @@ function drawInfill(x,pat,x0,y0,wd,ht,color,K){if(ht<=0)return;
 "use strict";
 ACH.push(
  {id:"spoolCollector",name:"Spool Hoarder",desc:"Own 8 different filament types."},
- {id:"squish",name:"Perfect Squish",desc:"Master the Flow & First-Layer Test (80%+)."},
+ {id:"squish",name:"Perfect Squish",desc:"Master the Flow & First-Layer Test (95%+)."},
  {id:"coldPull",name:"The Old Cold Pull",desc:"Clear a partial clog mid-print with a cold pull."},
  {id:"boneDry",name:"Bone Dry",desc:"Run a spool through the filament dryer."},
  {id:"meshWright",name:"Watertight",desc:"Repair a non-manifold mesh before slicing."},
@@ -2459,7 +2537,7 @@ function goInspect(st){const m=st.m,e=st.e;
    if(Object.values(S.fp).filter(q=>q.known.t&&q.known.f&&q.known.r).length>=4)unlockAch("masterTuner");}}
  // calibration mastery unlocks settings
  let calUnlocks=null;
- if(m.cat==="cal"&&!failed&&grade>=80&&!S.calib[m.id]){
+ if(m.cat==="cal"&&!failed&&grade>=95&&!S.calib[m.id]){
   S.calib[m.id]=true;
   calUnlocks=SETTINGS.filter(s2=>s2.unlockBy===m.id).map(s2=>s2.label);
   const calAch={benchy:"seaTrials",cube:"dialedIn",overhang:"defyingGravity",temptower:"goldilocks",retract:"stringTheory",flowcube:"squish",tolerance:"tolerancer"};
@@ -2566,7 +2644,7 @@ function renderInspect(st,arts,grade,pay,orderBonus,orderHit,failed,perfect,modI
  const tags=el("div",null); c.appendChild(tags);
  const payCard=el("div","card");
  if(m.cat==="cal"){payCard.innerHTML=`<b>🧪 Test print — no payout.</b>
-   <div class="sub" style="margin-top:4px">${failed?"The data died with the print — and the filament is still gone.":grade>=80?"Calibration logged. The machine gives up its secrets.":"Score 80%+ to certify this calibration and unlock its settings."}</div>`;}
+   <div class="sub" style="margin-top:4px">${failed?"The data died with the print — and the filament is still gone.":grade>=95?"Calibration logged. The machine gives up its secrets.":"Score 95%+ to certify this calibration and unlock its settings."}</div>`;}
  else if(m.cat==="mod"){payCard.innerHTML=modInstalled?
    `<b>🔧 Mod installed!</b><div class="sub" style="margin-top:4px">${m.name} now lives on your PrintCraft SE in ${st.colorSeg[0].name}.</div>`:
    `<b style="color:var(--bad)">Mod too warped to fit.</b><div class="sub" style="margin-top:4px">Needs a 60%+ grade. The filament is gone; try again.</div>`;}
